@@ -1,5 +1,11 @@
 package ca.mcgill.ecse.MammaMia.Controller;
 
-public class InvalidInputException {
+public class InvalidInputException extends Exception {
+	
+	private static final long serialVersionUID = -5633915762703837868L;
+	
+	public InvalidInputException(String errorMessage) {
+		super(errorMessage);
+	}
 
 }
