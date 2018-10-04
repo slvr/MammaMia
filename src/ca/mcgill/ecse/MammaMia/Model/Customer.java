@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 7 "Discovery.ump"
+// line 18 "MammaMia.ump"
 public class Customer
 {
 
@@ -48,7 +48,7 @@ public class Customer
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 10 "Discovery.ump"
+    // line 21 "MammaMia.ump"
     if(aName == null || aName.length() == 0 || aName.length() > 20){
     			return false;
     		}
@@ -61,8 +61,8 @@ public class Customer
   public boolean setPhoneNumber(long aPhoneNumber)
   {
     boolean wasSet = false;
-    // line 16 "Discovery.ump"
-    if(aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L){
+    // line 27 "MammaMia.ump"
+    if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && getEmail() == null){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -74,8 +74,8 @@ public class Customer
   public boolean setEmail(String aEmail)
   {
     boolean wasSet = false;
-    // line 22 "Discovery.ump"
-    if(aEmail == null || aEmail.length() == 0){ //TODO: email parsing
+    // line 33 "MammaMia.ump"
+    if((aEmail == null || aEmail.length() == 0) && Objects.isNull(getPhoneNumber())){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -87,7 +87,7 @@ public class Customer
   public boolean setAddress(String aAddress)
   {
     boolean wasSet = false;
-    // line 28 "Discovery.ump"
+    // line 39 "MammaMia.ump"
     if(aAddress == null || aAddress.length() == 0){
     			return false;
     		}
