@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 1 "Discovery.ump"
+// line 1 "MammaMia.ump"
 public class Order
 {
 
@@ -25,6 +25,7 @@ public class Order
 
   //Order Associations
   private List<Pizza> pizza;
+  private List<OrderDetails> details;
   private Customer customer;
 
   //------------------------
@@ -36,6 +37,7 @@ public class Order
     status = Status.OrderIn;
     orderNumber = 0;
     pizza = new ArrayList<Pizza>();
+    details = new ArrayList<OrderDetails>();
     boolean didAddCustomer = setCustomer(aCustomer);
     if (!didAddCustomer)
     {
@@ -100,6 +102,36 @@ public class Order
   public int indexOfPizza(Pizza aPizza)
   {
     int index = pizza.indexOf(aPizza);
+    return index;
+  }
+  /* Code from template association_GetMany */
+  public OrderDetails getDetail(int index)
+  {
+    OrderDetails aDetail = details.get(index);
+    return aDetail;
+  }
+
+  public List<OrderDetails> getDetails()
+  {
+    List<OrderDetails> newDetails = Collections.unmodifiableList(details);
+    return newDetails;
+  }
+
+  public int numberOfDetails()
+  {
+    int number = details.size();
+    return number;
+  }
+
+  public boolean hasDetails()
+  {
+    boolean has = details.size() > 0;
+    return has;
+  }
+
+  public int indexOfDetail(OrderDetails aDetail)
+  {
+    int index = details.indexOf(aDetail);
     return index;
   }
   /* Code from template association_GetOne */
@@ -179,6 +211,78 @@ public class Order
     }
     return wasAdded;
   }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfDetails()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public OrderDetails addDetail(int aQuantity, Item aItems)
+  {
+    return new OrderDetails(aQuantity, aItems, this);
+  }
+
+  public boolean addDetail(OrderDetails aDetail)
+  {
+    boolean wasAdded = false;
+    if (details.contains(aDetail)) { return false; }
+    Order existingOrder = aDetail.getOrder();
+    boolean isNewOrder = existingOrder != null && !this.equals(existingOrder);
+    if (isNewOrder)
+    {
+      aDetail.setOrder(this);
+    }
+    else
+    {
+      details.add(aDetail);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeDetail(OrderDetails aDetail)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aDetail, as it must always have a order
+    if (!this.equals(aDetail.getOrder()))
+    {
+      details.remove(aDetail);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addDetailAt(OrderDetails aDetail, int index)
+  {  
+    boolean wasAdded = false;
+    if(addDetail(aDetail))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDetails()) { index = numberOfDetails() - 1; }
+      details.remove(aDetail);
+      details.add(index, aDetail);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveDetailAt(OrderDetails aDetail, int index)
+  {
+    boolean wasAdded = false;
+    if(details.contains(aDetail))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDetails()) { index = numberOfDetails() - 1; }
+      details.remove(aDetail);
+      details.add(index, aDetail);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addDetailAt(aDetail, index);
+    }
+    return wasAdded;
+  }
   /* Code from template association_SetOneToMany */
   public boolean setCustomer(Customer aCustomer)
   {
@@ -206,6 +310,13 @@ public class Order
       Pizza aPizza = pizza.get(pizza.size() - 1);
       aPizza.delete();
       pizza.remove(aPizza);
+    }
+    
+    while (details.size() > 0)
+    {
+      OrderDetails aDetail = details.get(details.size() - 1);
+      aDetail.delete();
+      details.remove(aDetail);
     }
     
     Customer placeholderCustomer = customer;

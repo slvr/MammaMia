@@ -2,6 +2,17 @@ class Order {
 	Status status = Status.OrderIn;
 	lazy Integer orderNumber;
 	1 order <@>- * Pizza pizza;
+	1 order <@>- * OrderDetails details;
+}
+
+class OrderDetails {
+	Integer quantity;
+	* details -- 1 Item items;
+}
+
+class Item {
+	Integer calories;
+	Float price;
 }
 
 class Customer {
