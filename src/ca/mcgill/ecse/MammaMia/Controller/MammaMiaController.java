@@ -35,15 +35,21 @@ public class MammaMiaController {
 		PersistenceObjectStream.saveToXMLwithXStream(c);
 	}
 	
-	public void createOrder(Customer c){
+	public void createOrder(Customer c) throws InvalidInputException{
+		if(c == null){
+			throw new InvalidInputException("Order must have a customer!");
+		}
+		int orderNumber = PersistenceObjectStream.getNextOrderNumber();
+		Order o = new Order(c);
+		o.setOrderNumber(orderNumber);
+		PersistenceObjectStream.saveToXMLwithXStream(o);
+	}
+	
+	public void deleteOrder(int orderNumber) throws InvalidInputException{
 		
 	}
 	
-	public void deleteOrder(int orderNumber){
-		
-	}
-	
-	public void addPizzaToOrder(Pizza pizza, Order order){
+	public void addPizzaToOrder(Pizza pizza, Order order) throws InvalidInputException{
 		
 	}
 	
