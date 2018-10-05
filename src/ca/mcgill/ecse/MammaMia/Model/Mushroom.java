@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.MammaMia.Model;
 
-// line 88 "Discovery.ump"
+// line 104 "MammaMia.ump"
 public class Mushroom extends Ingredient
 {
 

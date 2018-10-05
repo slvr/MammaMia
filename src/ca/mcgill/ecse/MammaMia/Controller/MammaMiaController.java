@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import ca.mcgill.ecse.MammaMia.Model.Customer;
 import ca.mcgill.ecse.MammaMia.Model.Item;
+import ca.mcgill.ecse.MammaMia.Model.MammaMia;
 import ca.mcgill.ecse.MammaMia.Model.Order;
 import ca.mcgill.ecse.MammaMia.Model.OrderDetails;
 import ca.mcgill.ecse.MammaMia.Model.Pizza;
@@ -33,8 +34,9 @@ public class MammaMiaController {
 		if(aAddress == null || aAddress.length() == 0){
 			throw new InvalidInputException("Please enter a delivery address");
 		}
-		Customer c = new Customer(aName, aPhoneNumber, aEmail, aAddress);
-		PersistenceObjectStream.saveToXMLwithXStream(c);
+		MammaMia mm = MammaMia.getInstance();
+		Customer c = new Customer(aName, aPhoneNumber, aEmail, aAddress, mm);
+		PersistenceObjectStream.saveToXMLwithXStream(mm);
 	}
 	
 	public void createOrder(Customer c) throws InvalidInputException{
@@ -44,7 +46,7 @@ public class MammaMiaController {
 		int orderNumber = PersistenceObjectStream.getNextOrderNumber();
 		Order o = new Order(c);
 		o.setOrderNumber(orderNumber);
-		PersistenceObjectStream.saveToXMLwithXStream(o);
+		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
 	}
 	
 	public void deleteOrder(Order order) throws InvalidInputException{
@@ -56,6 +58,7 @@ public class MammaMiaController {
 			p.delete();
 		}
 		order.delete();
+		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
 	}
 	
 	public void addPizzaToOrder(Pizza pizza, Order order, Customer customer, int quantity) throws InvalidInputException{
@@ -79,7 +82,7 @@ public class MammaMiaController {
 		}
 		OrderDetails od = order.addDetail(quantity, new Item(pizza.getCalories(), pizza.getPrice()));
 		order.addDetail(od);
-		PersistenceObjectStream.saveToXMLwithXStream(order);
+		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
 
 	}
 	

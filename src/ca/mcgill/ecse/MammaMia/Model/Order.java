@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 1 "MammaMia.ump"
+// line 6 "MammaMia.ump"
 public class Order
 {
 

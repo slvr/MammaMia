@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 56 "Discovery.ump"
+// line 72 "MammaMia.ump"
 public class VeggiePizza extends Pizza
 {
 

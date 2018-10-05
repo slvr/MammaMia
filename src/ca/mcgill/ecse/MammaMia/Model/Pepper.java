@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.MammaMia.Model;
 
-// line 84 "Discovery.ump"
+// line 100 "MammaMia.ump"
 public class Pepper extends Ingredient
 {
 
