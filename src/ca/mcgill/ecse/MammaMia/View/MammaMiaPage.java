@@ -1,42 +1,38 @@
 package ca.mcgill.ecse.MammaMia.View;
 
-import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Properties;
 
-import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
-public class MammaMiaPage {
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.SqlDateModel;
 
-	public static void main(String args[]){
-		JFrame applicationFrame = new JFrame();
-		JPanel applicationPanel = new JPanel();
-		applicationFrame.setTitle("Mamma Mia Pizza");
-		applicationPanel.setLayout(new BoxLayout(applicationPanel, BoxLayout.Y_AXIS));
-		JLabel applicationUserLabel = new JLabel("Customer Name: ");
-		JTextField applicationUserText = new JTextField();
-		applicationPanel.add(applicationUserLabel);
-		applicationPanel.add(applicationUserText);
-		JButton applicationButton = new JButton("Begin Order");
-		applicationButton.addActionListener((ActionEvent e) -> {
-			if(applicationUserText.getText().equals("")){
-				JOptionPane.showMessageDialog(applicationFrame.getComponent(0), "Please enter a name");
-			}
-			else{
-				
-			}
-		});
-		applicationFrame.getRootPane().setDefaultButton(applicationButton);
-		applicationPanel.add(applicationButton);
-		applicationFrame.add(applicationPanel);
-		applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		applicationFrame.pack();
-		applicationFrame.setResizable(true);
-		applicationFrame.setLocationRelativeTo(null);
-		applicationFrame.setVisible(true);
+public class MammaMiaPage extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5686840125055340758L;
+
+	public MammaMiaPage(){
+		initComponents();
+		refreshData();
 	}
+	
 }
