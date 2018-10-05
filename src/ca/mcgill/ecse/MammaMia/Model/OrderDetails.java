@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.MammaMia.Model;
 
-// line 8 "MammaMia.ump"
+// line 13 "MammaMia.ump"
 public class OrderDetails
 {
 

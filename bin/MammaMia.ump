@@ -1,3 +1,8 @@
+class MammaMia {
+	singleton;
+	1 store <@>- * Customer customers;
+}
+
 class Order {
 	Status status = Status.OrderIn;
 	lazy Integer orderNumber;
@@ -24,13 +29,13 @@ class Customer {
 	}
 	long phoneNumber;
 	before setPhoneNumber{
-		if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && aEmail == null){
+		if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && aEmail.equals(null)){
 			return false;
 		}
 	}
 	String email;
 	before setEmail{
-		if((aEmail == null || aEmail.length() == 0) && aPhoneNumber == null){
+		if((aEmail == null || aEmail.length() == 0) && Objects.isNull(aPhoneNumber)){
 			return false;
 		}
 	}

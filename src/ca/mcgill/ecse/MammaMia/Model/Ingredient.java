@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.MammaMia.Model;
 
-// line 69 "Discovery.ump"
+// line 85 "MammaMia.ump"
 public class Ingredient
 {
 
@@ -46,7 +46,7 @@ public class Ingredient
   public boolean setCalories(int aCalories)
   {
     boolean wasSet = false;
-    // line 72 "Discovery.ump"
+    // line 88 "MammaMia.ump"
     if(aCalories < 0){
     			return false;
     		}
@@ -59,7 +59,7 @@ public class Ingredient
   public boolean setPrice(float aPrice)
   {
     boolean wasSet = false;
-    // line 78 "Discovery.ump"
+    // line 94 "MammaMia.ump"
     if(aPrice < 0){
     			return false;
     		}

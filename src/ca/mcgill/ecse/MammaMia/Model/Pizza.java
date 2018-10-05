@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 35 "Discovery.ump"
+// line 51 "MammaMia.ump"
 public class Pizza
 {
 
@@ -50,7 +50,7 @@ public class Pizza
   public boolean setCalories(int aCalories)
   {
     boolean wasSet = false;
-    // line 38 "Discovery.ump"
+    // line 54 "MammaMia.ump"
     if(aCalories <= 0){
     			return false;
     		}
@@ -63,7 +63,7 @@ public class Pizza
   public boolean setPrice(float aPrice)
   {
     boolean wasSet = false;
-    // line 44 "Discovery.ump"
+    // line 60 "MammaMia.ump"
     if(aPrice < 0){
     			return false;
     		}
