@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.Model;
 
 import java.util.*;
 
-// line 7 "Discovery.ump"
+// line 23 "MammaMia.ump"
 public class Customer
 {
 
@@ -27,18 +27,24 @@ public class Customer
 
   //Customer Associations
   private List<Order> order;
+  private MammaMia store;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Customer(String aName, long aPhoneNumber, String aEmail, String aAddress)
+  public Customer(String aName, long aPhoneNumber, String aEmail, String aAddress, MammaMia aStore)
   {
     name = aName;
     phoneNumber = aPhoneNumber;
     email = aEmail;
     address = aAddress;
     order = new ArrayList<Order>();
+    boolean didAddStore = setStore(aStore);
+    if (!didAddStore)
+    {
+      throw new RuntimeException("Unable to create customer due to store");
+    }
   }
 
   //------------------------
@@ -48,7 +54,7 @@ public class Customer
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 10 "Discovery.ump"
+    // line 26 "MammaMia.ump"
     if(aName == null || aName.length() == 0 || aName.length() > 20){
     			return false;
     		}
@@ -61,8 +67,8 @@ public class Customer
   public boolean setPhoneNumber(long aPhoneNumber)
   {
     boolean wasSet = false;
-    // line 16 "Discovery.ump"
-    if(aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L){
+    // line 32 "MammaMia.ump"
+    if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && getEmail().equals(null)){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -74,8 +80,8 @@ public class Customer
   public boolean setEmail(String aEmail)
   {
     boolean wasSet = false;
-    // line 22 "Discovery.ump"
-    if(aEmail == null || aEmail.length() == 0){ //TODO: email parsing
+    // line 38 "MammaMia.ump"
+    if((aEmail == null || aEmail.length() == 0) && Objects.isNull(getPhoneNumber())){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -87,7 +93,7 @@ public class Customer
   public boolean setAddress(String aAddress)
   {
     boolean wasSet = false;
-    // line 28 "Discovery.ump"
+    // line 44 "MammaMia.ump"
     if(aAddress == null || aAddress.length() == 0){
     			return false;
     		}
@@ -145,6 +151,11 @@ public class Customer
   {
     int index = order.indexOf(aOrder);
     return index;
+  }
+  /* Code from template association_GetOne */
+  public MammaMia getStore()
+  {
+    return store;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfOrder()
@@ -218,6 +229,25 @@ public class Customer
     }
     return wasAdded;
   }
+  /* Code from template association_SetOneToMany */
+  public boolean setStore(MammaMia aStore)
+  {
+    boolean wasSet = false;
+    if (aStore == null)
+    {
+      return wasSet;
+    }
+
+    MammaMia existingStore = store;
+    store = aStore;
+    if (existingStore != null && !existingStore.equals(aStore))
+    {
+      existingStore.removeCustomer(this);
+    }
+    store.addCustomer(this);
+    wasSet = true;
+    return wasSet;
+  }
 
   public void delete()
   {
@@ -228,6 +258,12 @@ public class Customer
       order.remove(aOrder);
     }
     
+    MammaMia placeholderStore = store;
+    this.store = null;
+    if(placeholderStore != null)
+    {
+      placeholderStore.removeCustomer(this);
+    }
   }
 
 
@@ -237,6 +273,7 @@ public class Customer
             "name" + ":" + getName()+ "," +
             "phoneNumber" + ":" + getPhoneNumber()+ "," +
             "email" + ":" + getEmail()+ "," +
-            "address" + ":" + getAddress()+ "]";
+            "address" + ":" + getAddress()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
   }
 }
