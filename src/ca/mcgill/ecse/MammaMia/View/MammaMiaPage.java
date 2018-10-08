@@ -19,9 +19,9 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.SqlDateModel;
+import ca.mcgill.ecse.MammaMia.Controller.InvalidInputException;
+import ca.mcgill.ecse.MammaMia.Controller.MammaMiaController;
+import ca.mcgill.ecse.MammaMia.Model.MammaMia;
 
 public class MammaMiaPage extends JFrame{
 
@@ -30,8 +30,70 @@ public class MammaMiaPage extends JFrame{
 	 */
 	private static final long serialVersionUID = -5686840125055340758L;
 
+	//UI
+	private JLabel errorMessage;
+	private JTextField customerNameTextField;
+	private JLabel customerNameLabel;
+	private JTextField customerEmailTextField;
+	private JLabel customerEmailLabel;
+	private JTextField customerAddressTextField;
+	private JLabel customerAddressLabel;
+	private JTextField customerPhoneTextField;
+	private JLabel customerPhoneLabel;
+	
+	//data
+	private String error = null;
+	private int selectedCustomer = -1;
+	
+	
+	
 	public MammaMiaPage(){
 		initComponents();
+		refreshData();
+	}
+	
+	private void initComponents(){
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		
+		
+	}
+	
+	private void refreshData(){
+		MammaMia mm = MammaMia.getInstance();
+		errorMessage.setText(error);
+		if(error == null || error.length() == 0){
+			
+		}
+		else{
+			System.out.println("THIS MESSAGE SHOULD NEVER APPEAR");
+		}
+		pack();
+	}
+	
+	private void createCustomerButtonActionPerformed(java.awt.event.ActionEvent evt){
+		MammaMiaController mm = new MammaMiaController();
+		error = null;
+		try{
+			mm.createCustomer(customerNameTextField.getText(), Long.parseLong(customerPhoneTextField.getText()), customerEmailTextField.getText(), customerAddressTextField.getText());
+		}
+		catch(InvalidInputException iie){
+			error = iie.getMessage();
+		}
+		refreshData();
+	}
+	
+	private void createOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
+		
+	}
+	
+	private void deleteOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
+	
+	}
+	
+	private void createPizzaButtonActionPerformed(java.awt.event.ActionEvent evt){
+		
+		
 		refreshData();
 	}
 	
