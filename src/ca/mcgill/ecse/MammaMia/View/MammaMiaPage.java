@@ -20,10 +20,6 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.SqlDateModel;
-
 import ca.mcgill.ecse.MammaMia.Controller.InvalidInputException;
 import ca.mcgill.ecse.MammaMia.Controller.MammaMiaController;
 import ca.mcgill.ecse.MammaMia.Model.MammaMia;
@@ -48,6 +44,8 @@ public class MammaMiaPage extends JFrame{
 	
 	//data
 	private String error = null;
+	private int selectedCustomer = -1;
+	
 	
 	
 	public MammaMiaPage(){
@@ -56,6 +54,9 @@ public class MammaMiaPage extends JFrame{
 	}
 	
 	private void initComponents(){
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		
 		
 	}
 	
