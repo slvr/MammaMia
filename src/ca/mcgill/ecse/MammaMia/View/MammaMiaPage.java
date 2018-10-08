@@ -11,7 +11,6 @@ import java.util.Properties;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -39,7 +38,7 @@ public class MammaMiaPage extends JFrame{
 	private JLabel customerEmailLabel;
 	private JTextField customerAddressTextField;
 	private JLabel customerAddressLabel;
-	private JFormattedTextField customerPhoneTextField;
+	private JTextField customerPhoneTextField;
 	private JLabel customerPhoneLabel;
 	
 	//data
