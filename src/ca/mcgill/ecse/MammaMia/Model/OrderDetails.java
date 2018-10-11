@@ -1,10 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 
-// line 13 "MammaMia.ump"
-public class OrderDetails
+// line 29 "../../../../../MammaMiaPersistence.ump"
+// line 17 "../../../../../MammaMia.ump"
+public class OrderDetails implements Serializable
 {
 
   //------------------------

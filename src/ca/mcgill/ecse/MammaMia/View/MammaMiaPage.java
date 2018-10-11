@@ -19,14 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ca.mcgill.ecse.MammaMia.Controller.InvalidInputException;
 import ca.mcgill.ecse.MammaMia.Controller.MammaMiaController;
-import ca.mcgill.ecse.MammaMia.Model.Customer;
-import ca.mcgill.ecse.MammaMia.Model.MammaMia;
-import ca.mcgill.ecse.MammaMia.Model.Menu;
-import ca.mcgill.ecse.MammaMia.Model.Mushroom;
-import ca.mcgill.ecse.MammaMia.Model.Order;
-import ca.mcgill.ecse.MammaMia.Model.OrderDetails;
-import ca.mcgill.ecse.MammaMia.Model.Pepper;
-import ca.mcgill.ecse.MammaMia.Model.Pizza;
+import ca.mcgill.ecse.MammaMia.model.*;
 
 public class MammaMiaPage extends JFrame{
 
@@ -73,7 +66,7 @@ public class MammaMiaPage extends JFrame{
 	
 	public MammaMiaPage(){
 		initComponents();
-		refreshData();
+//		refreshData();
 	}
 	
 	private void initComponents(){
@@ -234,15 +227,15 @@ public class MammaMiaPage extends JFrame{
 		pack();
 	}
 	
-	//TODO (or is it?)
-	private void refreshData(){
-		MammaMia mm = MammaMia.getInstance();
-		errorMessage.setText(error);
-		if(error == null || error.length() == 0){
-			
-		}
-		pack();
-	}
+
+//	private void refreshData(){
+//		MammaMia mm = MammaMia.getInstance();
+//		errorMessage.setText(error);
+//		if(error == null || error.length() == 0){
+//			
+//		}
+//		pack();
+//	}
 	
 	private void refreshAllData(){
 		errorMessage.setText(error);
@@ -263,7 +256,7 @@ public class MammaMiaPage extends JFrame{
 			}
 			orderCaloriesInt.setText("0");
 			orderPriceFloat.setText("$ " + "0.00");
-			refreshData();
+//			refreshData();
 		}
 		pack();
 	}
@@ -281,7 +274,6 @@ public class MammaMiaPage extends JFrame{
 		catch(InvalidInputException iie){
 			error = iie.getMessage();
 		}
-		refreshData();
 	}
 	
 	private void createOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
@@ -347,7 +339,7 @@ public class MammaMiaPage extends JFrame{
 		catch(InvalidInputException iie){
 			error = error + iie.getMessage();
 		}
-		refreshData();
+//		refreshData();
 	}
 	
 	private void updateDetails(OrderDetails od, Class<? extends Pizza> class1){

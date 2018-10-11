@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
-
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 23 "MammaMia.ump"
-public class Customer
+// line 41 "../../../../../MammaMiaPersistence.ump"
+// line 27 "../../../../../MammaMia.ump"
+public class Customer implements Serializable
 {
 
   //------------------------
@@ -54,7 +55,7 @@ public class Customer
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 26 "MammaMia.ump"
+    // line 30 "../../../../../MammaMia.ump"
     if(aName == null || aName.length() == 0 || aName.length() > 20){
     			return false;
     		}
@@ -67,8 +68,8 @@ public class Customer
   public boolean setPhoneNumber(long aPhoneNumber)
   {
     boolean wasSet = false;
-    // line 32 "MammaMia.ump"
-    if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && getEmail().equals(null)){
+    // line 36 "../../../../../MammaMia.ump"
+    if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && email.equals(null)){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -80,8 +81,8 @@ public class Customer
   public boolean setEmail(String aEmail)
   {
     boolean wasSet = false;
-    // line 38 "MammaMia.ump"
-    if((aEmail == null || aEmail.length() == 0) && Objects.isNull(getPhoneNumber())){
+    // line 42 "../../../../../MammaMia.ump"
+    if((aEmail == null || aEmail.length() == 0) && Objects.isNull(phoneNumber)){
     			return false;
     		}
     // END OF UMPLE BEFORE INJECTION
@@ -93,7 +94,7 @@ public class Customer
   public boolean setAddress(String aAddress)
   {
     boolean wasSet = false;
-    // line 44 "MammaMia.ump"
+    // line 48 "../../../../../MammaMia.ump"
     if(aAddress == null || aAddress.length() == 0){
     			return false;
     		}
