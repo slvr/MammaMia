@@ -9,7 +9,7 @@ class MammaMia {
 
 class Order {
 	Status status = Status.OrderIn;
-	lazy Integer orderNumber;
+	autounique orderNumber;
 	1 order <@>- * Pizza pizza;
 	1 order <@>- * OrderDetails details;
 }
@@ -33,13 +33,13 @@ class Customer {
 	}
 	long phoneNumber;
 	before setPhoneNumber{
-		if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && aEmail.equals(null)){
+		if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && email.equals(null)){
 			return false;
 		}
 	}
 	String email;
 	before setEmail{
-		if((aEmail == null || aEmail.length() == 0) && Objects.isNull(aPhoneNumber)){
+		if((aEmail == null || aEmail.length() == 0) && Objects.isNull(phoneNumber)){
 			return false;
 		}
 	}

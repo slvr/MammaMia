@@ -3,90 +3,91 @@ external interface Serializable {}
 class MammaMia {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -2683593616927798071L;
   
+  public void reinitialize() {
+  	Order.reinitializeUniqueOrderNumber(this.getCustomers());
+	}
 }
 
 class Order {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 2315072607928790501L;
   
+  public static void reinitializeUniqueOrderNumber(List<Customer> customers) {
+   	nextOrderNumber = 0;
+   	for (Customer customer : customers) {
+   		for (Order order : customer.getOrder()) {
+   			if (order.getOrderNumber() > nextOrderNumber) {
+	        nextOrderNumber = order.getOrderNumber();
+	      	}
+   		}     		   
+    }
+    nextOrderNumber++;
+  }  
 }
 
 class OrderDetails {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 8896099581655989380L;
   
 }
 
 class Item {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 386717977557499839L;
   
 }
 
 class Customer {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -3900912597282882073L;
   
 }
 
 class Pizza {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 2045406856025012133L;
   
 }
 
 class CheesePizza {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -7403802774454467836L;
   
 }
 
 class VeggiePizza {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -5683593616927798071L;
   
 }
 
 class CustomPizza {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -6683593616927798071L;
   
 }
 
 class Menu {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -7683593616927798071L;
   
 }
 
 class Ingredient {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -9683593616927798071L;
   
 }
 
 class Pepper {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -8683593616927798071L;
   
 }
 
 class Mushroom {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = -2553593616927798071L;
   
 }

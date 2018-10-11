@@ -1,6 +1,6 @@
 package ca.mcgill.ecse.MammaMia.Application;
 
-import ca.mcgill.ecse.MammaMia.Model.MammaMia;
+import ca.mcgill.ecse.MammaMia.model.MammaMia;
 import ca.mcgill.ecse.MammaMia.View.MammaMiaPage;
 import ca.mcgill.ecse.MammaMia.Persistence.PersistenceObjectStream;
 

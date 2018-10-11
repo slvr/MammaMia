@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
-
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 1 "MammaMia.ump"
-public class MammaMia
+// line 3 "../../../../../MammaMiaPersistence.ump"
+// line 5 "../../../../../MammaMia.ump"
+public class MammaMia implements Serializable
 {
 
   //------------------------
@@ -155,6 +156,11 @@ public class MammaMia
       customers.remove(aCustomer);
     }
     
+  }
+
+  // line 8 "../../../../../MammaMiaPersistence.ump"
+   public void reinitialize(){
+    Order.reinitializeUniqueOrderNumber(this.getCustomers());
   }
 
 }

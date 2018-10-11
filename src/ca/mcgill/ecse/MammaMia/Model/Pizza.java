@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
-
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 51 "MammaMia.ump"
-public class Pizza
+// line 47 "../../../../../MammaMiaPersistence.ump"
+// line 55 "../../../../../MammaMia.ump"
+public class Pizza implements Serializable
 {
 
   //------------------------
@@ -50,7 +51,7 @@ public class Pizza
   public boolean setCalories(int aCalories)
   {
     boolean wasSet = false;
-    // line 54 "MammaMia.ump"
+    // line 58 "../../../../../MammaMia.ump"
     if(aCalories <= 0){
     			return false;
     		}
@@ -63,7 +64,7 @@ public class Pizza
   public boolean setPrice(float aPrice)
   {
     boolean wasSet = false;
-    // line 60 "MammaMia.ump"
+    // line 64 "../../../../../MammaMia.ump"
     if(aPrice < 0){
     			return false;
     		}

@@ -1,10 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 
-// line 85 "MammaMia.ump"
-public class Ingredient
+// line 77 "../../../../../MammaMiaPersistence.ump"
+// line 89 "../../../../../MammaMia.ump"
+public class Ingredient implements Serializable
 {
 
   //------------------------
@@ -46,7 +48,7 @@ public class Ingredient
   public boolean setCalories(int aCalories)
   {
     boolean wasSet = false;
-    // line 88 "MammaMia.ump"
+    // line 92 "../../../../../MammaMia.ump"
     if(aCalories < 0){
     			return false;
     		}
@@ -59,7 +61,7 @@ public class Ingredient
   public boolean setPrice(float aPrice)
   {
     boolean wasSet = false;
-    // line 94 "MammaMia.ump"
+    // line 98 "../../../../../MammaMia.ump"
     if(aPrice < 0){
     			return false;
     		}

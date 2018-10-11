@@ -1,0 +1,93 @@
+external interface Serializable {}
+
+class MammaMia {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+  public void reinitialize() {
+  	Order.reinitializeUniqueOrderNumber(this.getCustomers());
+	}
+}
+
+class Order {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+  public static void reinitializeUniqueOrderNumber(List<Customer> customers) {
+   	nextOrderNumber = 0;
+   	for (Customer customer : customers) {
+   		for (Order order : customer.getOrder()) {
+   			if (order.getOrderNumber() > nextOrderNumber) {
+	        nextOrderNumber = order.getOrderNumber();
+	      	}
+   		}     		   
+    }
+    nextOrderNumber++;
+  }  
+}
+
+class OrderDetails {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Item {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Customer {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Pizza {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class CheesePizza {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class VeggiePizza {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class CustomPizza {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Menu {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Ingredient {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Pepper {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}
+
+class Mushroom {
+  depend java.io.Serializable;
+  isA Serializable;
+  
+}

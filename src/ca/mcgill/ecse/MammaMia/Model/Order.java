@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse.MammaMia.Model;
-
+package ca.mcgill.ecse.MammaMia.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 6 "MammaMia.ump"
-public class Order
+// line 12 "../../../../../MammaMiaPersistence.ump"
+// line 10 "../../../../../MammaMia.ump"
+public class Order implements Serializable
 {
 
   //------------------------
@@ -16,11 +17,19 @@ public class Order
   public enum Status { OrderIn, Preparation, InOven, OutForDelivery, Delivered }
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextOrderNumber = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Order Attributes
   private Status status;
+
+  //Autounique Attributes
   private int orderNumber;
 
   //Order Associations
@@ -35,7 +44,7 @@ public class Order
   public Order(Customer aCustomer)
   {
     status = Status.OrderIn;
-    orderNumber = 0;
+    orderNumber = nextOrderNumber++;
     pizza = new ArrayList<Pizza>();
     details = new ArrayList<OrderDetails>();
     boolean didAddCustomer = setCustomer(aCustomer);
@@ -53,14 +62,6 @@ public class Order
   {
     boolean wasSet = false;
     status = aStatus;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setOrderNumber(int aOrderNumber)
-  {
-    boolean wasSet = false;
-    orderNumber = aOrderNumber;
     wasSet = true;
     return wasSet;
   }
@@ -325,6 +326,19 @@ public class Order
     {
       placeholderCustomer.removeOrder(this);
     }
+  }
+
+  // line 17 "../../../../../MammaMiaPersistence.ump"
+   public static  void reinitializeUniqueOrderNumber(List<Customer> customers){
+    nextOrderNumber = 0;
+   	for (Customer customer : customers) {
+   		for (Order order : customer.getOrder()) {
+   			if (order.getOrderNumber() > nextOrderNumber) {
+	        nextOrderNumber = order.getOrderNumber();
+	      	}
+   		}     		   
+    }
+    nextOrderNumber++;
   }
 
 
