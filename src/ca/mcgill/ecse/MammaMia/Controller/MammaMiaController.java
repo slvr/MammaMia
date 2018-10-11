@@ -6,6 +6,7 @@ import java.util.Objects;
 import ca.mcgill.ecse.MammaMia.Application.MammaMiaApplication;
 import ca.mcgill.ecse.MammaMia.model.*;
 
+
 public class MammaMiaController {
 
 	public MammaMiaController(){
@@ -26,6 +27,7 @@ public class MammaMiaController {
 		}
 		MammaMia mammaMia = MammaMiaApplication.getMammaMia();
 		Customer c = new Customer(aName, aPhoneNumber, aEmail, aAddress, mammaMia);
+
 		return c;
 	}
 	
@@ -97,5 +99,19 @@ public class MammaMiaController {
 		}
 		return p;
 	}
+	
+//	public Pizza createPizza(String name, int calories, float price, Order order, Menu menu){
+//		Pizza p;
+//		if(name.equals("Moon Cheese")){
+//			p = new CheesePizza(calories, price, order, menu);
+//		}
+//		else if(name.equals("Veggie Tales")){
+//			p = new VeggiePizza(calories, price, order, menu);
+//		}
+//		else{
+//			p = new CustomPizza(calories, price, order, menu);
+//		}
+//		return p;
+//	}
 	
 }
