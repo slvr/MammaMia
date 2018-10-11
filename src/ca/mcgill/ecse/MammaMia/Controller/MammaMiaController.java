@@ -36,7 +36,6 @@ public class MammaMiaController {
 		}
 		MammaMia mm = MammaMia.getInstance();
 		Customer c = new Customer(aName, aPhoneNumber, aEmail, aAddress, mm);
-		PersistenceObjectStream.saveToXMLwithXStream(mm);
 	}
 	
 	public void createOrder(Customer c) throws InvalidInputException{
@@ -46,7 +45,6 @@ public class MammaMiaController {
 		int orderNumber = PersistenceObjectStream.getNextOrderNumber();
 		Order o = new Order(c);
 		o.setOrderNumber(orderNumber);
-		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
 	}
 	
 	public void deleteOrder(Order order) throws InvalidInputException{
@@ -58,7 +56,6 @@ public class MammaMiaController {
 			p.delete();
 		}
 		order.delete();
-		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
 	}
 	
 	public void addPizzaToOrder(Pizza pizza, Order order, Customer customer, int quantity) throws InvalidInputException{
@@ -82,8 +79,6 @@ public class MammaMiaController {
 		}
 		OrderDetails od = order.addDetail(quantity, new Item(pizza.getCalories(), pizza.getPrice()));
 		order.addDetail(od);
-		PersistenceObjectStream.saveToXMLwithXStream(MammaMia.getInstance());
-
 	}
 	
 }

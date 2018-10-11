@@ -1,3 +1,7 @@
+namespace ca.mcgill.ecse.MammaMia.model;
+
+use MammaMiaPersistence.ump;
+
 class MammaMia {
 	singleton;
 	1 store <@>- * Customer customers;
