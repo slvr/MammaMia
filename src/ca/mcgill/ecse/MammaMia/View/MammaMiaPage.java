@@ -1,28 +1,31 @@
 package ca.mcgill.ecse.MammaMia.View;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
 import ca.mcgill.ecse.MammaMia.Controller.InvalidInputException;
 import ca.mcgill.ecse.MammaMia.Controller.MammaMiaController;
 import ca.mcgill.ecse.MammaMia.Model.Customer;
 import ca.mcgill.ecse.MammaMia.Model.MammaMia;
 import ca.mcgill.ecse.MammaMia.Model.Menu;
+import ca.mcgill.ecse.MammaMia.Model.Mushroom;
 import ca.mcgill.ecse.MammaMia.Model.Order;
 import ca.mcgill.ecse.MammaMia.Model.OrderDetails;
+import ca.mcgill.ecse.MammaMia.Model.Pepper;
 import ca.mcgill.ecse.MammaMia.Model.Pizza;
 
 public class MammaMiaPage extends JFrame{
@@ -61,6 +64,7 @@ public class MammaMiaPage extends JFrame{
 	private JTable pizzaExtrasTable;
 	private JTextField extraPeppers;
 	private JTextField extraMushrooms;
+	private JButton deleteButton;
 	
 	//data
 	private String error = null;
@@ -117,7 +121,7 @@ public class MammaMiaPage extends JFrame{
 		});
 		
 		//order details
-		orderDetailsTable = new JTable(new Object[][] {{}}, new String[] {"Pizza Type", "Extras", "Remove?"});
+		orderDetailsTable = new JTable(new Object[][] {{}}, new String[] {"Pizza Type", "Extras", "Quantity", "Remove?"});
 		orderPriceLabel = new JLabel("Total Price: ");
 		orderCaloriesLabel = new JLabel("Total Calories: ");
 		orderPriceFloat = new JLabel();
@@ -126,6 +130,12 @@ public class MammaMiaPage extends JFrame{
 		orderCompleteButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				createOrderButtonActionPerformed(evt);
+			}
+		});
+		deleteButton = new JButton("Delete Order");
+		deleteButton.addActionListener(new java.awt.event.ActionListener(){
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				deleteOrderButtonActionPerformed(evt);
 			}
 		});
 		
@@ -168,7 +178,8 @@ public class MammaMiaPage extends JFrame{
 								.addComponent(orderCompleteButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(orderCaloriesLabel)
-								.addComponent(orderPriceLabel))
+								.addComponent(orderPriceLabel)
+								.addComponent(deleteButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(orderCaloriesInt)
 								.addComponent(orderPriceFloat)
@@ -217,12 +228,13 @@ public class MammaMiaPage extends JFrame{
 						.addComponent(pizzaPriceFloat))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(pizzaAddButton)
-						.addComponent(orderCompleteButton))				
+						.addComponent(orderCompleteButton)
+						.addComponent(deleteButton))				
 		);
 		pack();
 	}
 	
-	//TODO
+	//TODO (or is it?)
 	private void refreshData(){
 		MammaMia mm = MammaMia.getInstance();
 		errorMessage.setText(error);
@@ -233,15 +245,38 @@ public class MammaMiaPage extends JFrame{
 	}
 	
 	private void refreshAllData(){
-		
+		errorMessage.setText(error);
+		if(error == null || error.length() == 0){
+			customerNameTextField.setEditable(true);
+			customerAddressTextField.setEditable(true);
+			customerPhoneTextField.setEditable(true);
+			customerEmailTextField.setEditable(true);
+			customerNameTextField.setText("");
+			customerAddressTextField.setText("");
+			customerPhoneTextField.setText("");
+			customerEmailTextField.setText("");
+			DefaultTableModel dm = (DefaultTableModel) orderDetailsTable.getModel();
+			int rowCount = dm.getRowCount();
+			//Remove rows one by one from the end of the table
+			for (int i = rowCount - 1; i >= 1; i--) {
+			    dm.removeRow(i);
+			}
+			orderCaloriesInt.setText("0");
+			orderPriceFloat.setText("$ " + "0.00");
+			refreshData();
+		}
+		pack();
 	}
 	
-	//TODO Set customer info as permanent
 	private void createCustomerButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
 		error = null;
 		try{
 			selectedCustomer = mm.createCustomer(customerNameTextField.getText(), Long.parseLong(customerPhoneTextField.getText()), customerEmailTextField.getText(), customerAddressTextField.getText());
+			customerNameTextField.setEditable(false);
+			customerAddressTextField.setEditable(false);
+			customerPhoneTextField.setEditable(false);
+			customerEmailTextField.setEditable(false);
 		}
 		catch(InvalidInputException iie){
 			error = iie.getMessage();
@@ -249,23 +284,31 @@ public class MammaMiaPage extends JFrame{
 		refreshData();
 	}
 	
-	//TODO
 	private void createOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
 		error = null;
 		try{
 			mm.saveOrder(order);
+			JOptionPane.showMessageDialog(null, "Your order number is" + order.getOrderNumber(), "Success", JOptionPane.INFORMATION_MESSAGE);
+			refreshAllData();
 		}
 		catch(InvalidInputException iie){
 			error = iie.getMessage();
 		}
-		refreshAllData();
 	}
 	
-	//TODO
 	private void deleteOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
-
+		try{
+			if(order != null){
+				mm.deleteOrder(order);
+				JOptionPane.showMessageDialog(null, "Your order has been deleted", "Deleted", JOptionPane.INFORMATION_MESSAGE);
+				refreshAllData();
+			}
+		}
+		catch(InvalidInputException iie){
+			error = error + iie.getMessage();
+		}
 	}
 	
 	private void createPizzaButtonActionPerformed(java.awt.event.ActionEvent evt){
@@ -288,8 +331,18 @@ public class MammaMiaPage extends JFrame{
 			else{
 				p = mm.createPizza("Custom", 1500, 7.00f, order, new Menu());
 			}
+			if(!extraPeppers.getText().equals("")){
+				for(int i = Integer.parseInt(extraPeppers.getText()); i > 0; i--){
+					p.addIngredient(new Pepper(100, 1.00f, p, new Menu()));
+				}
+			}
+			else if(!extraMushrooms.getText().equals("")){
+				for(int i = Integer.parseInt(extraMushrooms.getText()); i > 0; i--){
+					p.addIngredient(new Mushroom(150, 1.10f, p, new Menu()));
+				}
+			}
 			OrderDetails od = mm.addPizzaToOrder(p, order, selectedCustomer, Integer.parseInt(pizzaQuantityInt.getText()));
-			updateDetails(od);
+			updateDetails(od, p.getClass());
 		}
 		catch(InvalidInputException iie){
 			error = error + iie.getMessage();
@@ -297,9 +350,32 @@ public class MammaMiaPage extends JFrame{
 		refreshData();
 	}
 	
-	//TODO
-	private void updateDetails(OrderDetails od){
-		
+	private void updateDetails(OrderDetails od, Class<? extends Pizza> class1){
+		JButton thisRowButton = new JButton("Remove this item");
+		DefaultTableModel model = (DefaultTableModel) orderDetailsTable.getModel();
+		String name;
+		if ("CheesePizza".equals(class1.getSimpleName())){
+			name = "Moon Cheese";
+		}
+		else if("VeggiePizza".equals(class1.getSimpleName())){
+			name = "Veggie Tales";
+		}
+		else{
+			name = "Custom";
+		}
+		thisRowButton.addActionListener(new ActionListener(){
+			@Override
+		    public void actionPerformed(ActionEvent arg0) {
+		        // check for selected row first
+		        if (orderDetailsTable.getSelectedRow() != -1) {
+		            // remove selected row from the model
+		            model.removeRow(orderDetailsTable.getSelectedRow());
+		        }
+		    }
+		});
+		model.addRow(new Object[]{name, "", od.getQuantity(), thisRowButton});
+		orderCaloriesInt.setText(Integer.toString(od.getItems().getCalories()));
+		orderPriceFloat.setText("$ " + Float.toString(od.getItems().getPrice()));
 	}
 	
 }

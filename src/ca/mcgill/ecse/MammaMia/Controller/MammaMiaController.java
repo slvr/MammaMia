@@ -114,12 +114,4 @@ public class MammaMiaController {
 		return p;
 	}
 	
-	public int getCalories(String basePizza, ArrayList<Ingredient> extras){
-		
-	}
-	
-	public float getPrice(String basePizza, ArrayList<Ingredient> extras){\
-		
-	}
-	
 }
