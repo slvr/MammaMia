@@ -1,7 +1,6 @@
 package ca.mcgill.ecse.MammaMia.Controller;
 
 import java.util.List;
-import java.util.Objects;
 
 import ca.mcgill.ecse.MammaMia.Application.MammaMiaApplication;
 import ca.mcgill.ecse.MammaMia.model.*;
@@ -19,7 +18,7 @@ public class MammaMiaController {
 		if((aPhoneNumber < 1000000000L || aPhoneNumber > 9999999999L) && aEmail == null){
 			throw new InvalidInputException("Please enter a phone number or email");
 		}
-		if((aEmail == null || aEmail.length() == 0) && Objects.isNull(aPhoneNumber)){
+		if((aEmail == null || aEmail.length() == 0) && aPhoneNumber == -1){
 			throw new InvalidInputException("Please enter a phone number or email");
 		}
 		if(aAddress == null || aAddress.length() == 0){
