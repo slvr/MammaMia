@@ -99,19 +99,31 @@ public class MammaMiaController {
 		}
 		return p;
 	}
-	
-//	public Pizza createPizza(String name, int calories, float price, Order order, Menu menu){
-//		Pizza p;
-//		if(name.equals("Moon Cheese")){
-//			p = new CheesePizza(calories, price, order, menu);
-//		}
-//		else if(name.equals("Veggie Tales")){
-//			p = new VeggiePizza(calories, price, order, menu);
-//		}
-//		else{
-//			p = new CustomPizza(calories, price, order, menu);
-//		}
-//		return p;
-//	}
+
+	public void updateCustomer(int customerIndex, String aName, long aPhoneNumber, String aEmail, String aAddress) throws InvalidInputException {
+		MammaMia mia = MammaMiaApplication.getMammaMia();
+		Customer selectedCustomer = mia.getCustomer(customerIndex);
+		selectedCustomer.setName(aName);
+		selectedCustomer.setAddress(aAddress);
+		selectedCustomer.setPhoneNumber(aPhoneNumber);
+		selectedCustomer.setEmail(aEmail);
+		try {
+			MammaMiaApplication.save();
+		}
+		catch (RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+
+	public void deleteCustomer(Customer selectedCustomer) throws InvalidInputException {
+		MammaMia mia = MammaMiaApplication.getMammaMia();
+		mia.removeCustomer(selectedCustomer);
+		try {
+			MammaMiaApplication.save();
+		}
+		catch (RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
 	
 }

@@ -107,7 +107,7 @@ public class MammaMia implements Serializable
   {
     boolean wasRemoved = false;
     //Unable to remove aCustomer, as it must always have a store
-    if (!this.equals(aCustomer.getStore()))
+    if (this.equals(aCustomer.getStore()))
     {
       customers.remove(aCustomer);
       wasRemoved = true;

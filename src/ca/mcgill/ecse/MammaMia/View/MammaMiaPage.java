@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import ca.mcgill.ecse.MammaMia.Application.MammaMiaApplication;
 import ca.mcgill.ecse.MammaMia.Controller.InvalidInputException;
 import ca.mcgill.ecse.MammaMia.Controller.MammaMiaController;
 import ca.mcgill.ecse.MammaMia.model.*;
@@ -59,11 +60,15 @@ public class MammaMiaPage extends JFrame{
 //	private JTextField extraMushrooms;
 	private JButton deleteButton;
 	private JComboBox<String> pastCustomers;
+	private JButton selectCustomerButton;
+	private JButton updateCustomerButton;
+	private JButton deleteCustomerButton;
 	
 	//data
 	private String error = null;
 	private Customer selectedCustomer = null;
 	private Order order = null;	
+	private int customerIndex = -1;
 	
 	public MammaMiaPage(){
 		initComponents();
@@ -94,11 +99,36 @@ public class MammaMiaPage extends JFrame{
 				createCustomerButtonActionPerformed(evt);
 			}
 		});
+		selectCustomerButton = new JButton("Select Customer");
+		selectCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				existingCustomerSelected(evt);
+			}
+		});
+		updateCustomerButton = new JButton("Update Info");
+		updateCustomerButton.setEnabled(false);
+		updateCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				updateCustomerSelected(evt);
+			}
+		});
+		deleteCustomerButton = new JButton("Remove Customer");
+		deleteCustomerButton.setEnabled(false);
+		deleteCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				deleteCustomerSelected(evt);
+			}
+		});
 		
-		MammaMia mm = MammaMia.getInstance();
+		MammaMia mm = MammaMiaApplication.getMammaMia();
 		pastCustomers = new JComboBox<String>();
 		for(Customer c : mm.getCustomers()){
-			pastCustomers.addItem(c.toString());
+			if((c.getPhoneNumber()) != -1){
+				pastCustomers.addItem(c.getName() + " " + c.getPhoneNumber());
+			}
+			else{
+				pastCustomers.addItem(c.getName() + " " + c.getEmail());
+			}
 		}
 		
 		//pizza creation
@@ -191,6 +221,8 @@ public class MammaMiaPage extends JFrame{
 								.addComponent(pizzaAddButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(pastCustomers)
+								.addComponent(selectCustomerButton)
+								.addComponent(updateCustomerButton)
 								.addComponent(customerRegisterButton)
 								.addComponent(pizzaQuantity)
 								.addComponent(pizzaCalories)
@@ -200,6 +232,7 @@ public class MammaMiaPage extends JFrame{
 								.addComponent(pizzaCaloriesInt)
 								.addComponent(pizzaPriceFloat))
 						.addGroup(layout.createParallelGroup()
+								.addComponent(deleteCustomerButton)
 								.addComponent(orderDetailsTable)
 								.addComponent(orderCompleteButton))
 						.addGroup(layout.createParallelGroup()
@@ -226,10 +259,13 @@ public class MammaMiaPage extends JFrame{
 						.addComponent(pastCustomers))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(customerAddressLabel)
-						.addComponent(customerAddressTextField))
+						.addComponent(customerAddressTextField)
+						.addComponent(selectCustomerButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(customerPhoneLabel)
-						.addComponent(customerPhoneTextField))
+						.addComponent(customerPhoneTextField)
+						.addComponent(updateCustomerButton)
+						.addComponent(deleteCustomerButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(customerEmailLabel)
 						.addComponent(customerEmailTextField)
@@ -261,14 +297,6 @@ public class MammaMiaPage extends JFrame{
 	}
 	
 
-//	private void refreshData(){
-//		MammaMia mm = MammaMia.getInstance();
-//		errorMessage.setText(error);
-//		if(error == null || error.length() == 0){
-//			
-//		}
-//		pack();
-//	}
 	
 	private void refreshAllData(){
 		errorMessage.setText(error);
@@ -299,7 +327,7 @@ public class MammaMiaPage extends JFrame{
 	
 	private void createCustomerButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
-		MammaMia mia = MammaMia.getInstance();
+		MammaMia mia = MammaMiaApplication.getMammaMia();
 		error = null;
 		try{
 			if(!customerPhoneTextField.getText().equals("")){
@@ -314,7 +342,7 @@ public class MammaMiaPage extends JFrame{
 			customerEmailTextField.setEditable(false);
 			pastCustomers.removeAllItems();
 			for(Customer c : mia.getCustomers()){
-				pastCustomers.addItem("khgf");
+				pastCustomers.addItem(c.getName() + " " + c.getPhoneNumber());
 			}
 			
 		}
@@ -328,13 +356,96 @@ public class MammaMiaPage extends JFrame{
 		initLayout();
 	}
 	
+	private void existingCustomerSelected(java.awt.event.ActionEvent evt){
+		MammaMia mia = MammaMiaApplication.getMammaMia();
+		try{
+			customerIndex = pastCustomers.getSelectedIndex();
+			selectedCustomer = mia.getCustomer(customerIndex);
+			customerNameTextField.setText(selectedCustomer.getName());
+			customerAddressTextField.setText(selectedCustomer.getAddress());
+			if(selectedCustomer.getPhoneNumber() == -1){
+				customerPhoneTextField.setText("");
+			}
+			else{
+				customerPhoneTextField.setText(String.valueOf(selectedCustomer.getPhoneNumber()));
+			}
+			customerEmailTextField.setText(selectedCustomer.getEmail());
+			deleteCustomerButton.setEnabled(true);
+			updateCustomerButton.setEnabled(true);
+		} catch(NumberFormatException nfe){
+			error = "Select from existing customers";
+		}
+		errorMessage.setText(error);
+		initLayout();
+	}
+	
+	private void updateCustomerSelected(java.awt.event.ActionEvent evt){
+		MammaMiaController mm = new MammaMiaController();
+		MammaMia mia = MammaMiaApplication.getMammaMia();
+		try{
+			if(!customerPhoneTextField.getText().equals("")){
+				mm.updateCustomer(customerIndex, customerNameTextField.getText(), Long.parseLong(customerPhoneTextField.getText()), customerEmailTextField.getText(), customerAddressTextField.getText());
+			}
+			else{
+				mm.updateCustomer(customerIndex, customerNameTextField.getText(), -1, customerEmailTextField.getText(), customerAddressTextField.getText());
+			}
+			pastCustomers.removeAllItems();
+			for(Customer c : mia.getCustomers()){
+				if(Objects.isNull(c.getPhoneNumber())){
+					pastCustomers.addItem(c.getName() + " " + c.getPhoneNumber());
+				}
+				else{
+					pastCustomers.addItem(c.getName() + " " + c.getEmail());
+				}
+			}
+			initLayout();
+			
+		} catch(NumberFormatException nfe){
+			error = "Select from existing customers";
+		}
+		catch(InvalidInputException iie){
+			error = error + " Invalid inputs";
+		}
+	}
+	
+	private void deleteCustomerSelected(java.awt.event.ActionEvent evt){
+		MammaMiaController mm = new MammaMiaController();
+		MammaMia mia = MammaMiaApplication.getMammaMia();
+		try{
+			selectedCustomer = mia.getCustomer(customerIndex);
+			mm.deleteCustomer(selectedCustomer);
+			pastCustomers.removeAllItems();
+			for(Customer c : mia.getCustomers()){
+				if(Objects.isNull(c.getPhoneNumber())){
+					pastCustomers.addItem(c.getName() + " " + c.getPhoneNumber());
+				}
+				else{
+					pastCustomers.addItem(c.getName() + " " + c.getEmail());
+				}
+			}
+			customerNameTextField.setText("");
+			customerAddressTextField.setText("");
+			customerPhoneTextField.setText("");
+			customerEmailTextField.setText("");
+			customerIndex = -1;
+			selectedCustomer = null;
+			initLayout();
+		}
+		catch(Exception e){
+			error = error + " Cannot delete Customer";
+		}
+	}
+	
 	private void createOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
 		error = null;
 		try{
 			mm.saveOrder(order);
 			JOptionPane.showMessageDialog(null, "Your order number is " + order.getOrderNumber(), "Success", JOptionPane.INFORMATION_MESSAGE);
+			updateCustomerButton.setEnabled(false);
+			deleteCustomerButton.setEnabled(false);
 			refreshAllData();
+			initLayout();
 		}
 		catch(InvalidInputException iie){
 			error = iie.getMessage();
