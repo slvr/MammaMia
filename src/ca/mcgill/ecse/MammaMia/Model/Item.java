@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 37 "../../../../../MammaMiaPersistence.ump"
+// line 38 "../../../../../MammaMiaPersistence.ump"
 // line 22 "../../../../../MammaMia.ump"
 public class Item implements Serializable
 {
@@ -179,5 +179,13 @@ public class Item implements Serializable
     return super.toString() + "["+
             "calories" + ":" + getCalories()+ "," +
             "price" + ":" + getPrice()+ "]";
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 41 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 4L ;
+
+  
 }

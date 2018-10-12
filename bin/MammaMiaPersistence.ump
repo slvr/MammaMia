@@ -3,8 +3,7 @@ external interface Serializable {}
 class MammaMia {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 1;
-  
+  private static final long serialVersionUID = 1L;
   
   public void reinitialize() {
   	Order.reinitializeUniqueOrderNumber(this.getCustomers());
@@ -14,6 +13,7 @@ class MammaMia {
 class Order {
   depend java.io.Serializable;
   isA Serializable;
+  private static final long serialVersionUID = 2L;
   
   public static void reinitializeUniqueOrderNumber(List<Customer> customers) {
    	nextOrderNumber = 0;
@@ -31,65 +31,67 @@ class Order {
 class OrderDetails {
   depend java.io.Serializable;
   isA Serializable;
+  private static final long serialVersionUID = 3L;
   
 }
 
 class Item {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 4L;
 }
 
 class Customer {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 5L;
 }
 
 class Pizza {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 6L;
 }
 
 class CheesePizza {
   depend java.io.Serializable;
   isA Serializable;
+  private static final long serialVersionUID = 7L;
   
 }
 
 class VeggiePizza {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 8L;
 }
 
 class CustomPizza {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 9L;
 }
 
 class Menu {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 10L;
 }
 
 class Ingredient {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 11L;
 }
 
 class Pepper {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 12L;
 }
 
 class Mushroom {
   depend java.io.Serializable;
   isA Serializable;
-  
+  private static final long serialVersionUID = 13L;
 }

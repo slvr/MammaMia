@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 67 "../../../../../MammaMiaPersistence.ump"
+// line 69 "../../../../../MammaMiaPersistence.ump"
 // line 80 "../../../../../MammaMia.ump"
 public class CustomPizza extends Pizza implements Serializable
 {
@@ -31,5 +31,13 @@ public class CustomPizza extends Pizza implements Serializable
   {
     super.delete();
   }
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 72 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 9L ;
 
+  
 }

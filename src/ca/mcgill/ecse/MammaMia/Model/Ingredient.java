@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 
-// line 79 "../../../../../MammaMiaPersistence.ump"
+// line 81 "../../../../../MammaMiaPersistence.ump"
 // line 89 "../../../../../MammaMia.ump"
 public class Ingredient implements Serializable
 {
@@ -153,5 +153,13 @@ public class Ingredient implements Serializable
             "price" + ":" + getPrice()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "pizza = "+(getPizza()!=null?Integer.toHexString(System.identityHashCode(getPizza())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "menu = "+(getMenu()!=null?Integer.toHexString(System.identityHashCode(getMenu())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 84 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 11L ;
+
+  
 }

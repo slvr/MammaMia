@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 14 "../../../../../MammaMiaPersistence.ump"
+// line 13 "../../../../../MammaMiaPersistence.ump"
 // line 10 "../../../../../MammaMia.ump"
 public class Order implements Serializable
 {
@@ -348,5 +348,13 @@ public class Order implements Serializable
             "orderNumber" + ":" + getOrderNumber()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 16 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 2L ;
+
+  
 }

@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 43 "../../../../../MammaMiaPersistence.ump"
+// line 44 "../../../../../MammaMiaPersistence.ump"
 // line 27 "../../../../../MammaMia.ump"
 public class Customer implements Serializable
 {
@@ -276,5 +276,13 @@ public class Customer implements Serializable
             "email" + ":" + getEmail()+ "," +
             "address" + ":" + getAddress()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 47 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 5L ;
+
+  
 }

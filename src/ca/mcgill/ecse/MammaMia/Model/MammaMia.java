@@ -158,7 +158,7 @@ public class MammaMia implements Serializable
     
   }
 
-  // line 10 "../../../../../MammaMiaPersistence.ump"
+  // line 9 "../../../../../MammaMiaPersistence.ump"
    public void reinitialize(){
     Order.reinitializeUniqueOrderNumber(this.getCustomers());
   }
@@ -168,7 +168,7 @@ public class MammaMia implements Serializable
   //------------------------
   
   // line 6 "../../../../../MammaMiaPersistence.ump"
-  private static final long serialVersionUID = 1 ;
+  private static final long serialVersionUID = 1L ;
 
   
 }

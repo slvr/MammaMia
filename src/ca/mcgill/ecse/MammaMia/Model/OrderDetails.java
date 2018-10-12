@@ -127,5 +127,13 @@ public class OrderDetails implements Serializable
             "quantity" + ":" + getQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "items = "+(getItems()!=null?Integer.toHexString(System.identityHashCode(getItems())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "order = "+(getOrder()!=null?Integer.toHexString(System.identityHashCode(getOrder())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 34 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 3L ;
+
+  
 }
