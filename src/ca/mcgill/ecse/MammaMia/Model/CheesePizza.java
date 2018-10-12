@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 53 "../../../../../MammaMiaPersistence.ump"
+// line 55 "../../../../../MammaMiaPersistence.ump"
 // line 71 "../../../../../MammaMia.ump"
 public class CheesePizza extends Pizza implements Serializable
 {

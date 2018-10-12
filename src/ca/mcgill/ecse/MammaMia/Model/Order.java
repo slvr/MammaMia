@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 12 "../../../../../MammaMiaPersistence.ump"
+// line 14 "../../../../../MammaMiaPersistence.ump"
 // line 10 "../../../../../MammaMia.ump"
 public class Order implements Serializable
 {
@@ -328,7 +328,7 @@ public class Order implements Serializable
     }
   }
 
-  // line 17 "../../../../../MammaMiaPersistence.ump"
+  // line 19 "../../../../../MammaMiaPersistence.ump"
    public static  void reinitializeUniqueOrderNumber(List<Customer> customers){
     nextOrderNumber = 0;
    	for (Customer customer : customers) {

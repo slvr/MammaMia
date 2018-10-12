@@ -3,6 +3,8 @@ external interface Serializable {}
 class MammaMia {
   depend java.io.Serializable;
   isA Serializable;
+  private static final long serialVersionUID = 1;
+  
   
   public void reinitialize() {
   	Order.reinitializeUniqueOrderNumber(this.getCustomers());

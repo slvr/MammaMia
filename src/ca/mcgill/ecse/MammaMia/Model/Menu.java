@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 71 "../../../../../MammaMiaPersistence.ump"
+// line 73 "../../../../../MammaMiaPersistence.ump"
 // line 84 "../../../../../MammaMia.ump"
 public class Menu implements Serializable
 {

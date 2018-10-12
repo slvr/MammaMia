@@ -7,7 +7,7 @@ import ca.mcgill.ecse.MammaMia.Persistence.PersistenceObjectStream;
 public class MammaMiaApplication {
 	
 	private static MammaMia mammaMia;
-	private static String filename = "data.btms";
+	private static String filename = "data.mammamia";
 
 	public static void main(String[] args){
 		//start UI

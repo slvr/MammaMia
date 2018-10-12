@@ -5,7 +5,7 @@ package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 41 "../../../../../MammaMiaPersistence.ump"
+// line 43 "../../../../../MammaMiaPersistence.ump"
 // line 27 "../../../../../MammaMia.ump"
 public class Customer implements Serializable
 {

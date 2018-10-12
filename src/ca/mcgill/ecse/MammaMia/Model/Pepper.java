@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 
-// line 83 "../../../../../MammaMiaPersistence.ump"
+// line 85 "../../../../../MammaMiaPersistence.ump"
 // line 104 "../../../../../MammaMia.ump"
 public class Pepper extends Ingredient implements Serializable
 {

@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 
-// line 29 "../../../../../MammaMiaPersistence.ump"
+// line 31 "../../../../../MammaMiaPersistence.ump"
 // line 17 "../../../../../MammaMia.ump"
 public class OrderDetails implements Serializable
 {
@@ -30,12 +30,12 @@ public class OrderDetails implements Serializable
     boolean didAddItems = setItems(aItems);
     if (!didAddItems)
     {
-      throw new RuntimeException("Unable to create detail due to items. ");
+      throw new RuntimeException("Unable to create detail due to items");
     }
     boolean didAddOrder = setOrder(aOrder);
     if (!didAddOrder)
     {
-      throw new RuntimeException("Unable to create detail due to order. ");
+      throw new RuntimeException("Unable to create detail due to order");
     }
   }
 

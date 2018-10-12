@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.MammaMia.model;
 import java.io.Serializable;
 
-// line 89 "../../../../../MammaMiaPersistence.ump"
+// line 91 "../../../../../MammaMiaPersistence.ump"
 // line 108 "../../../../../MammaMia.ump"
 public class Mushroom extends Ingredient implements Serializable
 {

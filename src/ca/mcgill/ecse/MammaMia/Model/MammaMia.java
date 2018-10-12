@@ -158,9 +158,17 @@ public class MammaMia implements Serializable
     
   }
 
-  // line 8 "../../../../../MammaMiaPersistence.ump"
+  // line 10 "../../../../../MammaMiaPersistence.ump"
    public void reinitialize(){
     Order.reinitializeUniqueOrderNumber(this.getCustomers());
   }
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 6 "../../../../../MammaMiaPersistence.ump"
+  private static final long serialVersionUID = 1 ;
 
+  
 }

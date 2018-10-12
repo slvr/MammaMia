@@ -55,8 +55,8 @@ public class MammaMiaPage extends JFrame{
 	private JLabel orderCaloriesLabel;
 	private JLabel orderCaloriesInt;
 	private JTable pizzaExtrasTable;
-	private JTextField extraPeppers;
-	private JTextField extraMushrooms;
+//	private JTextField extraPeppers;
+//	private JTextField extraMushrooms;
 	private JButton deleteButton;
 	private JComboBox<String> pastCustomers;
 	
@@ -106,16 +106,16 @@ public class MammaMiaPage extends JFrame{
 		pizzaCalories = new JLabel("Calories: ");
 		pizzaCaloriesInt = new JLabel("0");
 		pizzaExtrasLabel = new JLabel("With Extra: ");
-		extraPeppers = new JTextField();
-		extraMushrooms = new JTextField();
+//		extraPeppers = new JTextField();
+//		extraMushrooms = new JTextField();
 		try{
 //			pizzaExtrasTable = new JTable(new Object[][]{{"Peppers", extraPeppers},{"Mushrooms", extraMushrooms}}, 
 //				new String[]{"Ingredient", "Quantity"});
 			pizzaExtrasTable = new JTable(0, 2);
 			DefaultTableModel model = (DefaultTableModel) pizzaExtrasTable.getModel();
 			model.addRow(new String[]{"Ingredient", "Quantity"});
-			model.addRow(new String[]{"Peppers", "extraPeppers"});
-			model.addRow(new String[]{"Mushrooms", "extraMushrooms"});
+			model.addRow(new String[]{"Peppers", "0"});
+			model.addRow(new String[]{"Mushrooms", "0"});
 		}catch(ArrayIndexOutOfBoundsException e){
 			error = error + e.getMessage();
 		}
@@ -162,7 +162,10 @@ public class MammaMiaPage extends JFrame{
 				deleteOrderButtonActionPerformed(evt);
 			}
 		});
-		
+		initLayout();
+	}
+	
+	private void initLayout(){
 		//Layout
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -296,6 +299,7 @@ public class MammaMiaPage extends JFrame{
 	
 	private void createCustomerButtonActionPerformed(java.awt.event.ActionEvent evt){
 		MammaMiaController mm = new MammaMiaController();
+		MammaMia mia = MammaMia.getInstance();
 		error = null;
 		try{
 			if(!customerPhoneTextField.getText().equals("")){
@@ -308,6 +312,11 @@ public class MammaMiaPage extends JFrame{
 			customerAddressTextField.setEditable(false);
 			customerPhoneTextField.setEditable(false);
 			customerEmailTextField.setEditable(false);
+			pastCustomers.removeAllItems();
+			for(Customer c : mia.getCustomers()){
+				pastCustomers.addItem("khgf");
+			}
+			
 		}
 		catch(InvalidInputException iie){
 			error = iie.getMessage();
@@ -316,6 +325,7 @@ public class MammaMiaPage extends JFrame{
 			error = nfe.getMessage();
 		}
 		errorMessage.setText(error);
+		initLayout();
 	}
 	
 	private void createOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
@@ -365,15 +375,13 @@ public class MammaMiaPage extends JFrame{
 			else{
 				p = mm.createPizza("Custom", 1500, 7.00f, order, new Menu());
 			}
-			if(!extraPeppers.getText().equals("")){
-				for(int i = Integer.parseInt(extraPeppers.getText()); i > 0; i--){
-					p.addIngredient(new Pepper(100, 1.00f, p, new Menu()));
-				}
+			int extraPeppers = Integer.parseInt((String)pizzaExtrasTable.getModel().getValueAt(1, 1));
+			int extraMushrooms = Integer.parseInt((String)pizzaExtrasTable.getModel().getValueAt(2, 1));
+			for(int i = extraPeppers; i > 0; i--){
+				p.addIngredient(new Pepper(100, 1.00f, p, new Menu()));
 			}
-			else if(!extraMushrooms.getText().equals("")){
-				for(int i = Integer.parseInt(extraMushrooms.getText()); i > 0; i--){
-					p.addIngredient(new Mushroom(150, 1.10f, p, new Menu()));
-				}
+			for(int i = extraMushrooms; i > 0; i--){
+				p.addIngredient(new Mushroom(150, 1.10f, p, new Menu()));
 			}
 			OrderDetails od = mm.addPizzaToOrder(p, order, selectedCustomer, Integer.parseInt(pizzaQuantityInt.getText()));
 			updateDetails(od, p.getClass());
@@ -381,6 +389,10 @@ public class MammaMiaPage extends JFrame{
 		catch(InvalidInputException iie){
 			error = error + iie.getMessage();
 		}
+		catch(NumberFormatException nfe){
+			error = error + "Include pizza quantity. ";
+		}
+		errorMessage.setText(error);
 //		refreshData();
 	}
 	
