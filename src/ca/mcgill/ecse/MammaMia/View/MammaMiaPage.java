@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -56,13 +57,14 @@ public class MammaMiaPage extends JFrame{
 	private JLabel orderCaloriesLabel;
 	private JLabel orderCaloriesInt;
 	private JTable pizzaExtrasTable;
-//	private JTextField extraPeppers;
-//	private JTextField extraMushrooms;
 	private JButton deleteButton;
 	private JComboBox<String> pastCustomers;
 	private JButton selectCustomerButton;
 	private JButton updateCustomerButton;
 	private JButton deleteCustomerButton;
+	
+	private JSeparator verticalSeparator = new JSeparator(SwingConstants.VERTICAL);
+	private JSeparator horizontalSeparator= new JSeparator(SwingConstants.HORIZONTAL);
 	
 	//data
 	private String error = null;
@@ -168,10 +170,9 @@ public class MammaMiaPage extends JFrame{
 		
 		//order details
 		try{
-//			orderDetailsTable = new JTable(new Object[][] {{}}, new String[] {"Pizza Type", "Extras", "Quantity", "Remove?"});
-			orderDetailsTable = new JTable(0, 4);
+			orderDetailsTable = new JTable(0, 3);
 			DefaultTableModel model = (DefaultTableModel) orderDetailsTable.getModel();
-			model.addRow(new String[] {"Pizza Type", "Extras", "Quantity", "Remove?"});
+			model.addRow(new String[] {"Pizza Type", "Extras", "Quantity"});
 
 		}catch(ArrayIndexOutOfBoundsException e){
 			error = error + e.getMessage();
@@ -209,12 +210,14 @@ public class MammaMiaPage extends JFrame{
 								.addComponent(customerNameLabel)
 								.addComponent(customerAddressLabel)
 								.addComponent(customerPhoneLabel)
-								.addComponent(customerEmailLabel))
+								.addComponent(customerEmailLabel)
+								.addComponent(horizontalSeparator))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(customerNameTextField)
 								.addComponent(customerAddressTextField)
 								.addComponent(customerPhoneTextField)
 								.addComponent(customerEmailTextField)
+								.addComponent(horizontalSeparator)
 								.addComponent(pizzaList)
 								.addComponent(pizzaExtrasLabel)
 								.addComponent(pizzaExtrasTable)
@@ -224,22 +227,29 @@ public class MammaMiaPage extends JFrame{
 								.addComponent(selectCustomerButton)
 								.addComponent(updateCustomerButton)
 								.addComponent(customerRegisterButton)
+								.addComponent(horizontalSeparator)
 								.addComponent(pizzaQuantity)
 								.addComponent(pizzaCalories)
 								.addComponent(pizzaPriceLabel))
 						.addGroup(layout.createParallelGroup()
+								.addComponent(horizontalSeparator)
 								.addComponent(pizzaQuantityInt)
 								.addComponent(pizzaCaloriesInt)
 								.addComponent(pizzaPriceFloat))
 						.addGroup(layout.createParallelGroup()
+								.addComponent(verticalSeparator))
+						.addGroup(layout.createParallelGroup()
 								.addComponent(deleteCustomerButton)
+								.addComponent(horizontalSeparator)
 								.addComponent(orderDetailsTable)
 								.addComponent(orderCompleteButton))
 						.addGroup(layout.createParallelGroup()
+								.addComponent(horizontalSeparator)
 								.addComponent(orderCaloriesLabel)
 								.addComponent(orderPriceLabel)
 								.addComponent(deleteButton))
 						.addGroup(layout.createParallelGroup()
+								.addComponent(horizontalSeparator)
 								.addComponent(orderCaloriesInt)
 								.addComponent(orderPriceFloat)
 						)		
@@ -271,9 +281,12 @@ public class MammaMiaPage extends JFrame{
 						.addComponent(customerEmailTextField)
 						.addComponent(customerRegisterButton))
 				.addGroup(layout.createParallelGroup()
+						.addComponent(horizontalSeparator))
+				.addGroup(layout.createParallelGroup()
 						.addComponent(pizzaList)
 						.addComponent(pizzaQuantity)
 						.addComponent(pizzaQuantityInt)
+						.addComponent(verticalSeparator)
 						.addComponent(orderDetailsTable)
 						.addComponent(orderCaloriesLabel)
 						.addComponent(orderCaloriesInt))
@@ -281,14 +294,17 @@ public class MammaMiaPage extends JFrame{
 						.addComponent(pizzaExtrasLabel)
 						.addComponent(pizzaCalories)
 						.addComponent(pizzaCaloriesInt)
+						.addComponent(verticalSeparator)
 						.addComponent(orderPriceLabel)
 						.addComponent(orderPriceFloat))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(pizzaExtrasTable)
 						.addComponent(pizzaPriceLabel)
-						.addComponent(pizzaPriceFloat))
+						.addComponent(pizzaPriceFloat)
+						.addComponent(verticalSeparator))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(pizzaAddButton)
+						.addComponent(verticalSeparator)
 						.addComponent(orderCompleteButton)
 						.addComponent(deleteButton))				
 		);
@@ -508,7 +524,6 @@ public class MammaMiaPage extends JFrame{
 	}
 	
 	private void updateDetails(OrderDetails od, Class<? extends Pizza> class1){
-		JButton thisRowButton = new JButton("Remove this item");
 		try{
 		DefaultTableModel model = (DefaultTableModel) orderDetailsTable.getModel();
 		String name;
@@ -521,21 +536,7 @@ public class MammaMiaPage extends JFrame{
 		else{
 			name = "Custom";
 		}
-		thisRowButton.addActionListener(new ActionListener(){
-			@Override
-		    public void actionPerformed(ActionEvent arg0) {
-		        // check for selected row first
-		        if (orderDetailsTable.getSelectedRow() != -1) {
-		            // remove selected row from the model
-		        	try{
-		            model.removeRow(orderDetailsTable.getSelectedRow());
-		        	}catch(ArrayIndexOutOfBoundsException e){
-		        		error = error + e.getMessage();
-		    		}
-		        }
-		    }
-		});
-		model.addRow(new Object[]{name, "", od.getQuantity(), thisRowButton});
+		model.addRow(new Object[]{name, "", od.getQuantity()});
 		}catch(ArrayIndexOutOfBoundsException e){
 			error = error + e.getMessage();
 		}
